@@ -1,0 +1,54 @@
+var express = require('express');
+var fs = require('fs');
+var path = require('path');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var app = express();
+var nocache = require('nocache')
+app.use(nocache())
+
+try {
+  app.use(bodyParser.urlencoded({ extended: false
+    , limit: '5mb'
+  }));
+  app.use(bodyParser.json({
+    limit: '5mb'
+  }));
+  app.use(cookieParser());
+}
+catch (e) {
+  console.log(e);
+}
+
+app.use(function (req, res, next) {
+  console.log("request filename ");
+    var filename = path.basename(req.url);
+    var extension = path.extname(filename) || "";
+    extension = extension.toLowerCase();
+    if (extension === '.css'){
+        console.log("  The css file " + filename + " was requested.");
+    }
+    if (extension === '.png' || extension === '.jpg' || extension === '.jpeg'){
+        console.log("  The image file " + filename + " was requested.");
+    }
+    next();
+});
+
+app.use('/static', express.static('public'));
+
+app.all('*', function (req, res, next) {
+  next();
+});
+
+
+app.post('/login', function (req, res) {
+  var data = {status: 'succ'};
+  res.send(data);
+});
+
+  
+//Start listening 4000
+app.listen(4000, function () {
+  console.log('Example app listening on port 4000!');
+  console.log('dir:' + __dirname);
+});
