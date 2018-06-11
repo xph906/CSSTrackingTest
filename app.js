@@ -21,7 +21,8 @@ catch (e) {
 }
 
 app.use(function (req, res, next) {
-  console.log("request filename ");
+  try{
+    console.log("request filename ");
     var filename = path.basename(req.url);
     var extension = path.extname(filename) || "";
     extension = extension.toLowerCase();
@@ -31,17 +32,21 @@ app.use(function (req, res, next) {
     if (extension === '.png' || extension === '.jpg' || extension === '.jpeg'){
         console.log("  The image file " + filename + " was requested.");
     }
+  } catch(e){
+    console.log(e);
+  }
+  
     next();
 });
 
 app.use('/static', express.static(__dirname + '/public'));
 
-app.all('*', function (req, res, next) {
-  next();
-});
+// app.all('*', function (req, res, next) {
+//   next();
+// });
 
 
-app.post('/login', function (req, res) {
+app.get('/', function (req, res) {
   var data = {status: 'succ'};
   res.send(data);
 });
