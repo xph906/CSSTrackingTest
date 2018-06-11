@@ -53,7 +53,5 @@ app.get('/', function (req, res) {
 
   
 //Start listening 5000
-app.listen(5000, function () {
-  console.log('Example app listening on port 5000!');
-  console.log('dir:' + __dirname);
-});
+app.listen(process.env.PORT || 5000);
+
