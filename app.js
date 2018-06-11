@@ -34,7 +34,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/static', express.static('public'));
+app.use('/static', express.static(__dirname + '/public'));
 
 app.all('*', function (req, res, next) {
   next();
@@ -49,6 +49,6 @@ app.post('/login', function (req, res) {
   
 //Start listening 5000
 app.listen(5000, function () {
-  console.log('Example app listening on port 4000!');
+  console.log('Example app listening on port 5000!');
   console.log('dir:' + __dirname);
 });
