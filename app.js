@@ -31,6 +31,15 @@ app.use(function (req, res, next) {
     }
     if (extension === '.png' || extension === '.jpg' || extension === '.jpeg'){
         console.log("  The image file " + filename + " was requested.");
+      if (filename === "g1.png") {
+        setTimeout(function(){ next() }, 5000);
+        return ;
+      } else if (filename === "g2.png") {
+        setTimeout(function(){ next() }, 2000);
+        return ;
+      }  
+      next();
+      return ;   
     }
   } catch(e){
     console.log(e);
@@ -50,6 +59,14 @@ app.get('/', function (req, res) {
   var data = {status: 'succ'};
   res.send(data);
 });
+
+function sleep(time, callback) {
+    var stop = new Date().getTime();
+    while(new Date().getTime() < stop + time) {
+        ;
+    }
+    callback();
+}
 
   
 //Start listening 5000
