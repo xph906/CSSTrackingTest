@@ -1,5 +1,4 @@
 var express = require('express');
-var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -50,24 +49,10 @@ app.use(function (req, res, next) {
 
 app.use('/static', express.static(__dirname + '/public'));
 
-// app.all('*', function (req, res, next) {
-//   next();
-// });
-
-
 app.get('/', function (req, res) {
   var data = {status: 'succ'};
   res.send(data);
 });
-
-function sleep(time, callback) {
-    var stop = new Date().getTime();
-    while(new Date().getTime() < stop + time) {
-        ;
-    }
-    callback();
-}
-
   
 //Start listening 5000
 app.listen(process.env.PORT || 5000);
