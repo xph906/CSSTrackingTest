@@ -53,6 +53,11 @@ app.get('/', function (req, res) {
   var data = {status: 'succ'};
   res.send(data);
 });
+
+app.get('/evil', function (req, res) {
+  var data = {status: 'succ'};
+  res.send("<html><h1>You're hacked!!</h1></html>");
+});
   
 //Start listening 5000
 app.listen(process.env.PORT || 5000);
